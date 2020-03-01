@@ -59,22 +59,50 @@ def repfree(s):
                 return False
     return True  
 
+# def hillvalley(l):
+#     inc,dec=1,1
+#     i,j=0,1
+#     n=len(l)
+#     flow='inc'
+#     while(j<n):
+#         if(l[i]>l[j] and flow=='inc'):
+#             inc=inc+1
+#         elif(l[i]<l[j] and flow=='inc'):
+#             flow='dec'
+#             dec=dec+1
+#         elif(l[i]<l[j] and flow=='dec'):
+#             dec=dec+1
+#         else:
+#             return False
+#         i,j=i+1,j+1
+#     if(inc>=2 and dec>=2):
+#         return True
+#     return False
+
+
+def ascending(l):
+    if len(l) <= 1:
+        return(True)
+    else:
+        return(l[0] < l[1] and ascending(l[1:]))
+
+def descending(l):
+    if len(l) <= 1:
+        return(True)
+    else:
+        return(l[0] > l[1] and descending(l[1:]))
+
+def hill(l):
+    for i in range(1,len(l)-1):
+        if ascending(l[:i+1]) and descending(l[i:]):
+            return(True)
+    return(False)
+
+def valley(l):
+    for i in range(1,len(l)-1):
+        if descending(l[:i+1]) and ascending(l[i:]):
+            return(True)
+    return(False)
+
 def hillvalley(l):
-    inc,dec=1,1
-    i,j=0,1
-    n=len(l)
-    flow='inc'
-    while(j<n):
-        if(l[i]>l[j] and flow=='inc'):
-            inc=inc+1
-        elif(l[i]<l[j] and flow=='inc'):
-            flow='dec'
-            dec=dec+1
-        elif(l[i]<l[j] and flow=='dec'):
-            dec=dec+1
-        else:
-            return False
-        i,j=i+1,j+1
-    if(inc>=2 and dec>=2):
-        return True
-    return False
+    return(hill(l) or valley(l))
